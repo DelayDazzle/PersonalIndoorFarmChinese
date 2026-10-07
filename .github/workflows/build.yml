@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore PersonalIndoorFarmChinese.csproj
+
+      - name: Build
+        run: dotnet build PersonalIndoorFarmChinese.csproj --configuration Release --no-restore
+
+      - name: Prepare package
+        run: |
+          mkdir -p package/PersonalIndoorFarmChinese
+          cp manifest.json package/PersonalIndoorFarmChinese/
+          cp bin/Release/net9.0/PersonalIndoorFarmChinese.dll package/PersonalIndoorFarmChinese/
+          cd package
+          zip -r PersonalIndoorFarmChinese.zip PersonalIndoorFarmChinese
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PersonalIndoorFarmChinese
+          path: package/PersonalIndoorFarmChinese.zip
