@@ -1,0 +1,10 @@
+{
+  "Name": "PersonalIndoorFarm Chinese Localization",
+  "Author": "DelayDazzle",
+  "Version": "1.0.0",
+  "Description": "PersonalIndoorFarm 的独立汉化补丁。",
+  "UniqueID": "DelayDazzle.PersonalIndoorFarmChinese",
+  "EntryDll": "PersonalIndoorFarmChinese.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": []
+}
